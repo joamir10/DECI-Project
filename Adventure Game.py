@@ -1,6 +1,7 @@
 import random
 import time
 
+
 def start_game():
     """
     This function starts the game and introduces the player to the scenario.
@@ -11,11 +12,13 @@ def start_game():
     print("You need to find a way out of the cave before your flashlight runs out.")
     time.sleep(2)  # Create a delay before the game starts
 
+
 def display_score(total_score):
     """
     This function displays the player's current score.
     """
-    print("Your current score is: " + str(total_score))
+    print(f"Your current score is: {total_score}")
+
 
 def move_forward(total_score):
     """
@@ -33,6 +36,7 @@ def move_forward(total_score):
             return total_score, True
     return total_score, False
 
+
 def search_for_side_room(total_score):
     """
     This function handles the player's decision to search for a side room.
@@ -45,6 +49,7 @@ def search_for_side_room(total_score):
     else:
         print("You find nothing useful.")
     return total_score, False
+
 
 def try_to_fix_flashlight(total_score):
     """
@@ -60,16 +65,24 @@ def try_to_fix_flashlight(total_score):
         total_score -= 1
     return total_score, False
 
+
 def play_again():
     """
     This function asks the player if they want to play again.
     """
-    response = input("Do you want to play again? (Y/N) ")
-    if response.upper() == "Y":
-        start_game()
-        play_game()
-    else:
-        print("Thanks for playing!")
+    while True:
+        response = input("Do you want to play again? (Y/N) ")
+        if response.upper() == "Y":
+            start_game()
+            play_game()
+            break
+        elif response.upper() == "N":
+            print("Thanks for playing!")
+            break
+        else:
+            print("Invalid input. Please enter Y or N.")
+            time.sleep(1)
+
 
 def play_game():
     """
@@ -79,7 +92,7 @@ def play_game():
     cave_exit_found = False  # Initialize cave exit found flag
 
     while not cave_exit_found and total_score > 0:
-        print("\nYou have " + str(total_score) + " minutes of flashlight battery left.")
+        print(f"\nYou have {total_score} minutes of flashlight battery left.")
         display_score(total_score)
         action = input("Do you want to (A) move forward, (B) search for a side room, or (C) try to fix your flashlight? ")
 
@@ -101,5 +114,7 @@ def play_game():
 
     play_again()
 
-start_game()
-play_game()
+
+if __name__ == "__main__":
+    start_game()
+    play_game()
